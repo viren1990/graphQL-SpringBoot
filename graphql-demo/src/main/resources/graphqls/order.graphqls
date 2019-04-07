@@ -1,0 +1,14 @@
+extend type Query{
+	getAllOrders:[Order!]
+	getOrderById(code:String):Order!
+}
+
+type Order{
+	orderEntries:[OrderEntry!]
+	user:User!
+}
+
+type OrderEntry{
+	id:ID!
+	product:Product!
+}

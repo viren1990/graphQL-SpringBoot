@@ -1,0 +1,40 @@
+extend type Query{
+	getAllUsers:[User!]
+}
+
+extend type Mutation{
+	createUser(user:UserInput!):User
+}
+
+type User{
+	name:String
+	age:Int
+	uid:String!
+	orders:[Order!]
+	addresses:[Address!]
+}
+
+type Address{
+	line1:String
+	line2:String
+	town:String
+	pincode:String
+	country:String
+	mobile:String
+}
+
+input UserInput{
+	name:String
+	age:Int
+	uid:String!
+	addresses:[AddressInput!]
+}
+
+input AddressInput{
+	line1:String!
+	line2:String
+	town:String
+	pincode:String!
+	country:String!
+	mobile:String!
+}

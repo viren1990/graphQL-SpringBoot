@@ -1,0 +1,59 @@
+//Create product
+mutation CreateProduct($input:ProductInput!){
+  	createProduct(product:$input){
+    code
+    description
+    prices{
+      value
+    }
+  }
+}
+
+//Query Variables for create product
+{
+  "input": {
+    "code": "100100",
+    "description": "Chanel Cotton",
+    "prices": [
+  			{
+          "value": 44.2
+        },   
+      {
+        "value": 55.2
+      }
+    ]
+  }
+}
+
+
+++++++++++++++++++++++++++++++++++++++++++++++
+
+//Update product
+mutation UpdateProductDescription($id:ID! , $input:ProductInput!){
+			updateProductDescription(code:$id ,product:$input){
+				code
+    		description
+    		prices{
+          value
+        }
+  }
+}
+
+//Query Variables for update product
+{
+	"id": 100100,
+  "input": {
+
+  	"code": 100100,
+    "description": "Chanel Fancy Cotton",
+    "prices": [
+      {
+        "value": 7838.33
+      },
+      {
+        "value": 883.33
+      }
+    ]
+  }
+
+}

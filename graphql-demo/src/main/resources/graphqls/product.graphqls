@@ -1,0 +1,34 @@
+type Query{
+	getAllProducts:[Product!]!
+	productByCode(code:String):Product!
+}
+
+type Mutation{
+	createProduct(product:ProductInput):Product!
+	updateProductDescription(code:ID!,product:ProductInput):Product!
+}
+
+type Product{
+    code:String!
+	description:String
+	prices:[Price!]
+}
+
+input ProductInput{
+	code:ID!
+	description:String
+	prices:[PriceInput!]
+}
+
+input PriceInput{
+	value:Float!
+}
+
+type Price {
+	value:Float
+}
+
+schema{
+	query:Query
+	mutation:Mutation
+}

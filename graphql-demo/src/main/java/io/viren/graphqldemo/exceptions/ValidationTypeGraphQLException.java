@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo.exceptions;
+package io.viren.graphqldemo.exceptions;
 
 import java.util.List;
 

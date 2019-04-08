@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo.models;
+package io.viren.graphqldemo.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,28 +14,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
+@Entity
+@Table(name="prices")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ADDRESS")
-@Entity
-public class Address {
+public class Price {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "ADDRESS_ID")
+	@Column(name = "PRICE_ID")
 	private long id;
 	
-	private String line1;
-	private String line2;
-	private String town;
-	private String pincode;
-	private String country;
-	private String mobile;
+	@Column(name = "PRICE_VALUE")
+	private double value;
 	
-	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
-	private User user;
+	@ManyToOne(optional = false , fetch = FetchType.LAZY)
+	@JoinColumn(name = "PRODUCT_ID" , nullable = false)
+	private Product product;
 
 }

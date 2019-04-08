@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo.domains;
+package io.viren.graphqldemo.domains;
 
 import java.util.List;
 

@@ -28,7 +28,11 @@
     orderEntries {
       product {
         code
+        prices {
+          value
+        }
       }
     }
   }
 }
+

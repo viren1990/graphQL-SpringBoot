@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo.models;
+package io.viren.graphqldemo.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -15,27 +14,28 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "orderentries")
+@Table(name = "ADDRESS")
 @Entity
-public class OrderEntry {
+public class Address {
 	
 	@Id
 	@GeneratedValue
-	@Column(name ="ORDER_ENTRY_ID")
+	@Column(name = "ADDRESS_ID")
 	private long id;
 	
-	@OneToOne(fetch = FetchType.LAZY)
-	private Product product;
+	private String line1;
+	private String line2;
+	private String town;
+	private String pincode;
+	private String country;
+	private String mobile;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	@JoinColumn(name = "ORDER_ID", nullable = false)
-	private Order order;
-	
-	@Column(name = "ORDER_ENTRY_QUANTITY")
-	private int quantity;
-	
+	@JoinColumn(name = "USER_ID", nullable = false)
+	private User user;
+
 }

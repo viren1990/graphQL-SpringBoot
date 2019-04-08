@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo.resolvers;
+package io.viren.graphqldemo.resolvers;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -9,23 +9,23 @@ import org.springframework.stereotype.Component;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 
-import io.viren.graphql.graphqldemo.domains.AddressDto;
-import io.viren.graphql.graphqldemo.domains.OrderDto;
-import io.viren.graphql.graphqldemo.domains.OrderEntryDto;
-import io.viren.graphql.graphqldemo.domains.PriceDto;
-import io.viren.graphql.graphqldemo.domains.ProductDto;
-import io.viren.graphql.graphqldemo.domains.UserDto;
-import io.viren.graphql.graphqldemo.exceptions.ProductNotFoundException;
-import io.viren.graphql.graphqldemo.exceptions.UserNotFoundException;
-import io.viren.graphql.graphqldemo.models.Address;
-import io.viren.graphql.graphqldemo.models.Order;
-import io.viren.graphql.graphqldemo.models.OrderEntry;
-import io.viren.graphql.graphqldemo.models.Price;
-import io.viren.graphql.graphqldemo.models.Product;
-import io.viren.graphql.graphqldemo.models.User;
-import io.viren.graphql.graphqldemo.repositories.OrderRepository;
-import io.viren.graphql.graphqldemo.repositories.ProductRepository;
-import io.viren.graphql.graphqldemo.repositories.UserRepository;
+import io.viren.graphqldemo.domains.AddressDto;
+import io.viren.graphqldemo.domains.OrderDto;
+import io.viren.graphqldemo.domains.OrderEntryDto;
+import io.viren.graphqldemo.domains.PriceDto;
+import io.viren.graphqldemo.domains.ProductDto;
+import io.viren.graphqldemo.domains.UserDto;
+import io.viren.graphqldemo.exceptions.ProductNotFoundException;
+import io.viren.graphqldemo.exceptions.UserNotFoundException;
+import io.viren.graphqldemo.models.Address;
+import io.viren.graphqldemo.models.Order;
+import io.viren.graphqldemo.models.OrderEntry;
+import io.viren.graphqldemo.models.Price;
+import io.viren.graphqldemo.models.Product;
+import io.viren.graphqldemo.models.User;
+import io.viren.graphqldemo.repositories.OrderRepository;
+import io.viren.graphqldemo.repositories.ProductRepository;
+import io.viren.graphqldemo.repositories.UserRepository;
 
 @Component
 public class RootMutationResolver implements GraphQLMutationResolver {

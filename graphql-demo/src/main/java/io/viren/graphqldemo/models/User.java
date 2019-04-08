@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo.models;
+package io.viren.graphqldemo.models;
 
 import java.util.List;
 

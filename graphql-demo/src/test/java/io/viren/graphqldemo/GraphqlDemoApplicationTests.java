@@ -1,4 +1,4 @@
-package io.viren.graphql.graphqldemo;
+package io.viren.graphqldemo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

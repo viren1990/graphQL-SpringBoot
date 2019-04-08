@@ -14,5 +14,7 @@ public class OrderDto {
 	private List<OrderEntryDto> orderEntries;
 	
 	private UserDto user;
+	
+	private long id;
 
 }

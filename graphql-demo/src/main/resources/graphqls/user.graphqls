@@ -4,6 +4,7 @@ extend type Query{
 
 extend type Mutation{
 	createUser(user:UserInput!):User
+	updateUser(uid:ID!,user:UserInput!):User
 }
 
 type User{

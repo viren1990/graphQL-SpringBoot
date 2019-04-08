@@ -1,0 +1,35 @@
+//Create Order
+
+mutation CreateOrder($input:OrderInput!){
+  	createOrder(order:$input){
+			uid
+    	name
+    	orders{
+				orderEntries{
+	      	product{
+							code
+  	          description
+          
+          }
+          quantity
+        }
+      }
+  }
+}
+
+//Query Parameters
+{
+  "input": {
+    "user": {
+      "uid": "in@gmail.com"
+    },
+    "orderEntries": [
+      {
+        "quantity": 5,
+        "product": {
+          "code": 100100
+        }
+      }
+    ]
+  }
+}

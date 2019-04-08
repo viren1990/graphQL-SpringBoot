@@ -1,14 +1,19 @@
 package io.viren.graphql.graphqldemo.resolvers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
+import graphql.GraphQLError;
+import graphql.servlet.GenericGraphQLError;
 import io.viren.graphql.graphqldemo.domains.AddressDto;
 import io.viren.graphql.graphqldemo.domains.OrderDto;
 import io.viren.graphql.graphqldemo.domains.OrderEntryDto;
@@ -27,7 +32,7 @@ import io.viren.graphql.graphqldemo.repositories.OrderRepository;
 import io.viren.graphql.graphqldemo.repositories.ProductRepository;
 import io.viren.graphql.graphqldemo.repositories.UserRepository;
 
-@Component
+@Component("io.viren.graphql.graphqldemo.resolvers.RootQueryResolver")
 public class RootQueryResolver implements GraphQLQueryResolver {
 
 	@Autowired
@@ -42,6 +47,12 @@ public class RootQueryResolver implements GraphQLQueryResolver {
 	public List<OrderDto> getAllOrders() {
 		return StreamSupport.stream(orderRepository.findAll().spliterator(), false).map(this::createOrderDto)
 				.collect(Collectors.toList());
+	}
+
+	public List<OrderDto> getOrdersByUid(final String uid) {
+		return StreamSupport
+				.stream(orderRepository.findAllByUser(userRepository.findByUid(uid).orElse(null)).spliterator(), false)
+				.map(this::createOrderDto).collect(Collectors.toList());
 	}
 
 	public OrderDto getOrderById(final String orderId) {
@@ -60,16 +71,18 @@ public class RootQueryResolver implements GraphQLQueryResolver {
 	}
 
 	public List<UserDto> getAllUsers() {
-		return StreamSupport.stream(userRepository.findAll().spliterator(), false).map(this::createUserDto)
+		return StreamSupport.stream(userRepository.findAll().spliterator(), false).map(user -> this.createUserDto(user,true))
 				.collect(Collectors.toList());
 	}
 
-	private UserDto createUserDto(final User user) {
+	private UserDto createUserDto(final User user , final boolean setOrders) {
 		final UserDto dto = new UserDto();
 		dto.setId(user.getId());
 		dto.setName(user.getName());
 		dto.setAge(user.getAge());
-		dto.setOrders(user.getOrders().stream().map(this::createOrderDto).collect(Collectors.toList()));
+		if(setOrders) {
+			dto.setOrders(user.getOrders().stream().map(this::createOrderDto).collect(Collectors.toList()));
+		}
 		dto.setAddresses(user.getAddresses().stream().map(this::createAddressDto).collect(Collectors.toList()));
 		return dto;
 	}
@@ -84,17 +97,19 @@ public class RootQueryResolver implements GraphQLQueryResolver {
 		dto.setMobile(address.getMobile());
 		return dto;
 	}
-	
+
 	private OrderDto createOrderDto(final Order order) {
 		final OrderDto orderDto = new OrderDto();
 		orderDto.setOrderEntries(order.getEntries().stream().map(this::createEntryDto).collect(Collectors.toList()));
+		orderDto.setUser(Optional.ofNullable(order.getUser()).map(user -> this.createUserDto(user, false)).orElse(null));
+		orderDto.setId(order.getId());
 		return orderDto;
 	}
 
 	private OrderEntryDto createEntryDto(final OrderEntry entry) {
 		final OrderEntryDto dto = new OrderEntryDto();
-		dto.setId(entry.getId());
 		dto.setProduct(createProduct(entry.getProduct()));
+		dto.setId(entry.getId());
 		return dto;
 	}
 
@@ -110,5 +125,10 @@ public class RootQueryResolver implements GraphQLQueryResolver {
 		final PriceDto priceDto = new PriceDto();
 		priceDto.setValue(price.getValue());
 		return priceDto;
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public GraphQLError handleIntegrityViolationException(DataIntegrityViolationException exception) {
+		return new GenericGraphQLError("Don't mess with data integrity, violation is not allowed. ");
 	}
 }

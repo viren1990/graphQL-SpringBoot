@@ -1,14 +1,30 @@
 extend type Query{
 	getAllOrders:[Order!]
 	getOrderById(code:String):Order!
+	getOrdersByUid(uid:ID!):[Order!]
 }
 
 type Order{
+	id:ID!
 	orderEntries:[OrderEntry!]
 	user:User!
 }
 
+extend type Mutation{
+	createOrder(order:OrderInput!):User!
+}
+
+input OrderInput{
+	orderEntries:[OrderEntryInput!]
+	user:UserInput!
+}
+
+input OrderEntryInput{
+	product:ProductInput!
+	quantity:Int!
+}
+
 type OrderEntry{
-	id:ID!
 	product:Product!
+	quantity:Int!
 }

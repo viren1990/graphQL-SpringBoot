@@ -11,5 +11,7 @@ import io.viren.graphql.graphqldemo.models.User;
 public interface UserRepository extends CrudRepository<User, Long> {
 	
 	Optional<User> findByUid(final String uid);
+	
+	
 
 }

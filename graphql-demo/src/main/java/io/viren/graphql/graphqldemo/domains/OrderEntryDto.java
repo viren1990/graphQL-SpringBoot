@@ -12,5 +12,7 @@ public class OrderEntryDto {
 	private ProductDto product;
 	
 	private long id;
+	
+	private int quantity;
 
 }

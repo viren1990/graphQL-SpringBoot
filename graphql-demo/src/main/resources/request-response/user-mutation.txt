@@ -1,0 +1,77 @@
+// Create User
+
+mutation CreateUser($input:UserInput!){
+  createUser(user:$input){
+	name
+    age
+    uid
+    addresses{
+	    line1
+     	line2
+      	town
+      	pincode
+      	country
+      	mobile
+    }
+  }
+}
+
+//Query Parameters
+{
+  "input": {
+    "name": "Viren",
+    "age": 29,
+    "uid": "in@gmail.com",
+    "addresses": [
+      {
+        "line1": "x-street, Ground Floor",
+        "line2": "Y Enclave",
+        "town": "Gurugram",
+        "pincode": "122001",
+        "country": "India",
+        "mobile": "1897929922"
+      }
+    ]
+  }
+}
+
+========================================================================================================
+
+//Update User
+
+mutation UpdateUser($code:ID!, $input:UserInput!){
+  updateUser(uid:$code,user:$input){
+	name
+    age
+    uid
+    addresses{
+		line1
+     	line2
+      	town
+      	pincode
+      	country
+      	mobile
+    }
+  }
+}
+
+//Query Parameter
+
+{  
+  "code": "in@gmail.com",
+  "input": {
+    "name": "Viren",
+    "age": 29,
+    "uid": "in@gmail.com",
+    "addresses": [
+      {
+        "line1": "978,Pandav Nagar",
+        "line2": "Baniya Ka Bagh",
+        "town": "Jaipur",
+        "pincode": "302001",
+        "country": "India",
+        "mobile": "1897929922"
+      }
+    ]
+  }
+}

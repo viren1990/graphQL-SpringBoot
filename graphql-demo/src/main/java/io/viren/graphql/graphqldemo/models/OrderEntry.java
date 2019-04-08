@@ -35,5 +35,7 @@ public class OrderEntry {
 	@JoinColumn(name = "ORDER_ID", nullable = false)
 	private Order order;
 	
+	@Column(name = "ORDER_ENTRY_QUANTITY")
+	private int quantity;
 	
 }
